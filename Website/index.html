@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>An exploration of spatial privacy</title>
+		<meta name="generator" content="Bootply"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="css/styles.css" rel="stylesheet">
+		<link href="css/reset.css" rel="stylesheet">
+
+	</head>
+	<body>
+<!-- begin template -->
+<div class="navbar navbar-custom navbar-fixed-top">
+ <div class="navbar-header"><a class="navbar-brand" href="#">An exploration of spatial privacy</a>
+      <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Text Analyze</a></li>
+        <li><a href="charts.html">Time Pattern Analyze</a></li>
+        <li><a href="raw_tweet_retrieval.html">Raw Tweet Retrieval</a></li>
+        <li><a href="delete_views.html">Delete Views</a></li>
+        <li>&nbsp;</li>
+      </ul>
+    </div>
+</div>
+
+<div id="map-canvas">loading googlemap...</div>
+<div class="container-fluid" id="main">
+  <div class="row">
+  	<div class="col-xs-8" id="left">
+    
+      <h3>Experiment Results</h3>
+      
+      <!-- item list -->
+      
+      <div class="panel panel-default">
+        <div class="panel-heading"><a href="#">Frequent Topics/Tokens</a>
+        &nbsp;&nbsp;
+        <input type="radio" name="wordOrTopics" value="topic" checked> 
+        Lists Topics Only
+        <input type="radio" name="wordOrTopics" value="Word">
+        Lists Tokens
+        </div>
+      </div>
+      <div id="topics">Topics identified in the region will be shown here</div>
+      <hr>
+
+      <div class="panel panel-default">
+        <div class="panel-heading"><a href="#">Identified Users</a></div>
+      </div>
+      <div id="usrs">Users identified in the region will be shown here</div>
+      <hr>
+      
+      <!-- /item list -->
+        
+      <p>
+      <a href="#" onclick="qry()" class="center-block btn btn-primary">Analyze topics and users in this region</a>
+      </p>
+        
+      <hr>      
+
+    </div>
+    <div class="col-xs-4"><!--map-canvas will be postioned here--></div>
+    
+  </div>
+</div>
+<!-- end template -->
+
+	<!-- script references -->
+	<!-- http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js-->
+		<script src="js/stopwords.js"></script>
+		<script src="js/new_pouch_query.js"></script>
+		<script src="js/pouchdb-4.0.2.min.js"></script>
+		<script src="js/chart_gen.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="http://maps.googleapis.com/maps/api/js"></script>
+		<script src="js/scripts.js"></script>
+	</body>
+</html>

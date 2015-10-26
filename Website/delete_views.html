@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>An exploration of spatial privacy</title>
+		<meta name="generator" content="Bootply"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="css/styles.css" rel="stylesheet">
+		<link href="css/reset.css" rel="stylesheet">
+
+	</head>
+	<body>
+<!-- begin template -->
+<div class="navbar navbar-custom navbar-fixed-top">
+ <div class="navbar-header"><a class="navbar-brand" href="#">An exploration of spatial privacy</a>
+      <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="index.html">Text Analyze</a></li>
+        <li><a href="charts.html">Time Pattern Analyze</a></li>
+        <li><a href="raw_tweet_retrieval.html">Raw Tweet Retrieval</a></li>       
+        <li><a href="#">Delete Views</a></li>
+        <li>&nbsp;</li>
+      </ul>
+    </div>
+</div>
+
+<div id="map-canvas">loading googlemap...</div>
+<div class="container-fluid" id="main">
+  <div class="row">
+  	<div class="col-xs-8" id="left">
+    
+      <h3>Experiment Results</h3>
+      
+      <!-- item list -->
+      
+      <div class="panel panel-default">
+        <div class="panel-heading"><a href="#">Delete views</a></div>
+      </div>
+      <div id="topics">All views in the database created by this website will be deleted if the button is clicked, be very contious as this operation is not reversible</div>
+      <hr>
+
+      
+      <!-- /item list -->
+        
+      <p>
+      <a href="#" onclick="delete_all()" class="center-block btn btn-primary">click to delete views in the database</a>
+      </p>
+        
+      <hr>      
+
+    </div>
+    <div class="col-xs-4"><!--map-canvas will be postioned here--></div>
+    
+  </div>
+</div>
+<!-- end template -->
+
+	<!-- script references -->
+	<!-- http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js-->
+		<script src="js/stopwords.js"></script>
+		<script src="js/pouch_query.js"></script>
+		<script src="js/pouchdb-4.0.2.min.js"></script>
+		<script src="js/chart_gen.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="http://maps.googleapis.com/maps/api/js"></script>
+		<script src="js/scripts.js"></script>
+    <script>
+      delete_all=function(){
+        var db = new PouchDB('http://115.146.92.225:5984/geocouch_mel')
+        db.allDocs({
+          include_docs: true,
+          attachments: true,
+          startkey: '_design/webqueries_',
+          endkey: '_design/webqueries_\uffff'
+        }).then(function (result) {
+          for (var i = 0; i<result.rows.length; i++){
+            rsid = result.rows[i].id
+            db.get(rsid).then(function(doc){
+              return db.remove(doc)
+            }).catch(function(err){
+              console.log(err)
+            })
+          }
+          alert("All views are deleted")
+          //console.log(result)
+        }).catch(function (err) {
+          console.log(err);
+        });
+      }
+    </script>
+	</body>
+</html>

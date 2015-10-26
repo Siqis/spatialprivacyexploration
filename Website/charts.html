@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>An exploration of spatial privacy</title>
+		<meta name="generator" content="Bootply"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="css/styles.css" rel="stylesheet">
+		<link href="css/reset.css" rel="stylesheet">
+
+	</head>
+	<body>
+<!-- begin template -->
+<div class="navbar navbar-custom navbar-fixed-top">
+ <div class="navbar-header"><a class="navbar-brand" href="#">An exploration of spatial privacy</a>
+      <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="index.html">Text Analyze</a></li>
+        <li><a href="#">Time Pattern Analyze</a></li>
+        <li><a href="raw_tweet_retrieval.html">Raw Tweet Retrieval</a></li>
+        <li><a href="delete_views.html">Delete Views</a></li>      
+        <li>&nbsp;</li>
+      </ul>
+    </div>
+</div>
+
+<div id="map-canvas">loading googlemap...</div>
+<div class="container-fluid" id="main">
+  <div class="row">
+  	<div class="col-xs-8" id="left">
+    
+      <h3>Experiment Results</h3>
+      
+      <!-- item list -->
+      <div class="panel panel-default">
+        <div class="panel-heading"><a href="#">Hourly Pattern</a></div>
+      </div>
+      <div id="hours"></div>
+      
+      <hr>
+      
+      <div class="panel panel-default">
+        <div class="panel-heading"><a href="#">Weekly Patterns</a></div>
+      </div>
+      <div id="day"></div>
+      
+      <hr>
+      <div class="panel panel-default">
+        <div class="panel-heading" id="month_panel"><a href="#">Monthy Pattern</a>&#9;</div>
+      </div>
+      <script>
+      	container = document.getElementById("month_panel")
+      	container.innerHTML+="<select id=\"yr\"></select>"
+      	container.innerHTML+="<select id=\"mth\"></select>"
+      	yearSelecter = document.getElementById("yr")
+      	monthSelecter = document.getElementById("mth")
+      	for(var i=2014;i<=2015;i++)
+      	{
+      		yearSelecter.innerHTML+="<option value=\""+i+"\">"+i+"</option>"
+      	}
+      	for(var i=1;i<=12;i++)
+      	{
+      		monthSelecter.innerHTML+="<option value=\""+i+"\">"+i+"</option>"
+      	}
+      </script>
+      <div id="date">
+      </div>
+      <hr>
+      <!-- /item list -->
+        
+      <p>
+      <a href="#" onclick="c_qry()" class="center-block btn btn-primary">Generate time pattern</a>
+      </p>
+        
+      <hr>      
+
+    </div>
+    <div class="col-xs-4"><!--map-canvas will be postioned here--></div>
+    
+  </div>
+</div>
+<!-- end template -->
+
+	<!-- script references -->
+	<!-- http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js-->
+		<script src="js/stopwords.js"></script>
+		<script src="js/pouch_query.js"></script>
+		<script src="js/pouchdb-4.0.2.min.js"></script>
+		<script src="js/chart_gen.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="http://maps.googleapis.com/maps/api/js"></script>
+		<script src="http://code.highcharts.com/highcharts.js"> </script>
+		<script src="js/scripts.js"></script>
+		
+<script>
+	crqry = function()
+	{
+		yr = document.getElementById("yr")
+		mth = document.getElementById("mth")
+		yrVal = yr.options[yr.selectedIndex].value
+		mthVal = mth.options[mth.selectedIndex].value
+		alert(yrVal)
+		alert(mthVal)
+		//var strUser = e.options[e.selectedIndex].value;
+		alert("test")
+		//day
+		$(function () {    
+	        $('#hours').highcharts({
+	            title: {
+	                text: 'Average Tweets by week in this region',
+	                x: -20 //center
+	            },
+	            subtitle: {
+	                text: 'Source: Twitter',
+	                x: -20
+	            },
+	            xAxis: {
+	                categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Tur', 'Fri', 'Sat']
+	            },
+	            yAxis: {
+	                title: {
+	                    text: 'Count'
+	                },
+	                plotLines: [{
+	                    value: 0,
+	                    width: 1,
+	                    color: '#808080'
+	                }]
+	            },
+	            legend: {
+	                layout: 'vertical',
+	                align: 'right',
+	                verticalAlign: 'middle',
+	                borderWidth: 0
+	            },
+	            series: [{name:'count',data:[1,2,3,4,5,6,7]}]
+	        });
+	    });
+	    //hour
+	    $(function () {    
+	        $('#day').highcharts({
+	            title: {
+	                text: 'Average Tweets by week in this region',
+	                x: -20 //center
+	            },
+	            subtitle: {
+	                text: 'Source: Twitter',
+	                x: -20
+	            },
+	            xAxis: {
+	                categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Tur', 'Fri', 'Sat']
+	            },
+	            yAxis: {
+	                title: {
+	                    text: 'Count'
+	                },
+	                plotLines: [{
+	                    value: 0,
+	                    width: 1,
+	                    color: '#808080'
+	                }]
+	            },
+	            legend: {
+	                layout: 'vertical',
+	                align: 'right',
+	                verticalAlign: 'middle',
+	                borderWidth: 0
+	            },
+	            series: [{name:'count',data:[7,6,5,4,3,2,1]}]
+	        });
+	    });
+	    //wk
+	    $(function () {    
+	        $('#date').highcharts({
+	            title: {
+	                text: 'Average Tweets by week in this region',
+	                x: -20 //center
+	            },
+	            subtitle: {
+	                text: 'Source: Twitter',
+	                x: -20
+	            },
+	            xAxis: {
+	                categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Tur', 'Fri', 'Sat']
+	            },
+	            yAxis: {
+	                title: {
+	                    text: 'Count'
+	                },
+	                plotLines: [{
+	                    value: 0,
+	                    width: 1,
+	                    color: '#808080'
+	                }]
+	            },
+	            legend: {
+	                layout: 'vertical',
+	                align: 'right',
+	                verticalAlign: 'middle',
+	                borderWidth: 0
+	            },
+	            series: [{name:'count',data:[1,2,3,4,3,2,1]}]
+	        });
+	    });
+    }
+</script>
+	</body>
+</html>
