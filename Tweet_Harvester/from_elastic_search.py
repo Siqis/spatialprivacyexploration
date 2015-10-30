@@ -4,11 +4,13 @@ import sys
 
 ipadd = sys.argv[1]
 db = sys.argv[2]
+placename = sys.argv[3]
 if(len(sys.argv)！=3)
 {
 	print "usage: python from_elastic_search.py <ip address> <database name>"
 	sys.exit(0)
 }
+
 header = {"Content-Type":"application/json"}
 payload = {
     "fields": [
@@ -56,6 +58,7 @@ payload = {
     "from": 0,
     "size": 10
 }
+payload["query"]["filtered"]["filter"]["and"][0]["fquery"]["query"]["query_string"]["query"]="doc.place.name:"+"\""+placename+"\""
 
 for i in range(0,900):
   fm = 20000 + 1000*i
