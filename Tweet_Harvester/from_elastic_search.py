@@ -103,7 +103,7 @@ for i in range(0,900):
     print jps
     couchCONN = HC.HTTPConnection(ipadd)
     couchCONN.connect()
-    couchCONN.request('POST','/',jps,header) #twitter_area2
+    couchCONN.request('POST','/'+db,jps,header) #twitter_area2
     resStr = couchCONN.getresponse().read().decode("utf-8")
     print vfrom
     print resStr
