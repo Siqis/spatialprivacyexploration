@@ -2,7 +2,13 @@ import httplib as HC
 import json
 import sys
 
-
+ipadd = sys.argv[1]
+db = sys.argv[2]
+if(len(sys.argv)！=3)
+{
+	print "usage: python from_elastic_search.py <ip address> <database name>"
+	sys.exit(0)
+}
 header = {"Content-Type":"application/json"}
 payload = {
     "fields": [
@@ -59,7 +65,7 @@ for i in range(0,900):
 
   payload["from"] = vfrom
   payload["size"] = vsize
-  
+
   print vfrom
   print vsize
 
@@ -95,7 +101,7 @@ for i in range(0,900):
 
     jps = json.dumps(jp)
     print jps
-    couchCONN = HC.HTTPConnection('')
+    couchCONN = HC.HTTPConnection(ipadd)
     couchCONN.connect()
     couchCONN.request('POST','/',jps,header) #twitter_area2
     resStr = couchCONN.getresponse().read().decode("utf-8")
