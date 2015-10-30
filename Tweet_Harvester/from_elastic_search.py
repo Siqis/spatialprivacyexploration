@@ -7,7 +7,7 @@ db = sys.argv[2]
 placename = sys.argv[3]
 if(len(sys.argv)！=3)
 {
-	print "usage: python from_elastic_search.py <ip address> <database name>"
+	print "usage: python from_elastic_search.py <ip address> <database name> <location name>"
 	sys.exit(0)
 }
 
