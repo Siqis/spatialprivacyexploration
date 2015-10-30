@@ -1,7 +1,7 @@
 rawtweets = function(b_lat,u_lat,l_lon,r_lon)
 {
   //initializing database
-  var pouchDB = new PouchDB('http://115.146.92.225:5984/geocouch_mel')
+  var pouchDB = new PouchDB(server)
   resultPlace = document.getElementById("rawtweets")
   chartPlace = document.getElementById("rawtweets")
   //resultPlace.innerHTML += "<p>Hi</p>"
@@ -70,7 +70,7 @@ showresults = function(qstring){
 	console.log("I'm called")
     var resultPlace = document.getElementById("rawtweets")
     //var chartPlace = document.getElementById("tcharts")
-    var pouchDB = new PouchDB('http://115.146.92.225:5984/geocouch_mel')
+    var pouchDB = new PouchDB(server)
     pouchDB.query(qstring).then(function (res) 
     {
     	// got the query results

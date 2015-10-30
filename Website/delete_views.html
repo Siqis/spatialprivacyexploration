@@ -76,9 +76,10 @@
 		<script src="js/bootstrap.min.js"></script>
 		<script src="http://maps.googleapis.com/maps/api/js"></script>
 		<script src="js/scripts.js"></script>
+    <script src="js/couchdb_server_dest.js"></script>
     <script>
       delete_all=function(){
-        var db = new PouchDB('http://115.146.92.225:5984/geocouch_mel')
+        var db = new PouchDB(server)
         db.allDocs({
           include_docs: true,
           attachments: true,

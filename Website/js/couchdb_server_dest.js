@@ -1,0 +1,1 @@
+var server = 'http://115.146.92.225:5984/geocouch_mel'

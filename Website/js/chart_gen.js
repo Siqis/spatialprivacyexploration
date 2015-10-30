@@ -1,7 +1,7 @@
 function chart_query(b_lat,u_lat,l_lon,r_lon)
 {
   //initializing database
-  var pouchDB = new PouchDB('http://115.146.92.225:5984/geocouch_mel')
+  var pouchDB = new PouchDB(server)
   resultPlace = document.getElementById("date")
   chartPlace = document.getElementById("date")
   //resultPlace.innerHTML += "<p>Hi</p>"
@@ -91,7 +91,7 @@ function chart_query(b_lat,u_lat,l_lon,r_lon)
 
 querychart = function(qstring0,divid)
 {
-  var pouchDB = new PouchDB('http://115.146.92.225:5984/geocouch_mel')
+  var pouchDB = new PouchDB(server)
   //WEEKLY QUERY
   pouchDB.query(qstring0,{reduce: true, group: true}).then(function (res) {
     console.log(res)

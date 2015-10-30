@@ -4,7 +4,7 @@ querythedb = function(qstring,topics)
     var topicPlace = document.getElementById("topics")
     var usrPlace = document.getElementById("usrs")
     //var chartPlace = document.getElementById("tcharts")
-    var pouchDB = new PouchDB('http://115.146.92.225:5984/geocouch_mel')
+    var pouchDB = new PouchDB(server)
     console.log(qstring)
     pouchDB.query(qstring,{reduce: true, group: true}).then(function (res) {
       // got the query results
@@ -102,7 +102,7 @@ function query(b_lat,u_lat,l_lon,r_lon)
   //var chartPlace = document.getElementById("tcharts")
     
   //initializing database
-  var pouchDB = new PouchDB('http://115.146.92.225:5984/geocouch_mel')
+  var pouchDB = new PouchDB(server)
   //resultPlace.innerHTML += "<p>Hi</p>"
 
   pouchDB.info().then(function (info) {

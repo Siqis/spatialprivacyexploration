@@ -1,0 +1,21 @@
+- hosts: couchdbserver
+  sudo: yes
+  sudo_user: root
+  tasks:
+   - name: Update all packages to the latest version
+     apt: upgrade=dist
+
+   - name: Update "apt-get"
+     apt: update_cache=yes
+
+   - name: install pip
+     apt: pkg=python-pip state=latest
+
+   - name: install couchdb
+     apt: pkg=couchdb state=latest
+
+   - name: write the config file
+     template: src=local.ini dest=/etc/couchdb/local.ini
+
+   - name: initialize database named melbourne
+     command: curl -H 'Content-Type: application/json' -X POST http://127.0.0.1:5984/_replicator -d '{"source":"http://115.146.92.225:5984/geocouch_mel","target":"melbourne}'
